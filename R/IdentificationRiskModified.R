@@ -10,19 +10,25 @@
 IdentificationRiskModified <- function(origdata, syndata, known, syn){
   origdata = origdata
   syndata = syndata
-  syn.vars = rep(0,length(syn))
-  known.vars = rep(0,length(known))
+  syn.vars = syn
+  known.vars = known
+  #syn.vars = rep(0,length(syn))
+  #known.vars = rep(0,length(known))
 
-  for (i in 1:ncol(origdata)) {
-    if (colnames(origdata)[i] == syn[i]) {
-      syn.vars[length(syn.vars) + 1] = i
-    }
-    if (colnames(origdata)[i] == known[i]) {
-      known.vars[length(known.vars) + 1] = i
-    }
-  }
+  # for (i in 1:ncol(origdata)) {
+  #   for (j in 1:length(syn)){
+  #     if (colnames(origdata)[i] == syn[j]) {
+  #       syn.vars[length(syn.vars) + 1] = i
+  #     }
+  #   }
+  #   for (k in 1:length(known)) {
+  #     if (colnames(origdata)[i] == known[k]) {
+  #       known.vars[length(known.vars) + 1] = i
+  #     }
+  #   }
+  # }
 
-  m = length(syn.vars) ## number of synthetic populations
+  m = length(syndata) ## number of synthetic populations
   n = nrow(origdata) ## number of records / individuals
 
   c_vector = matrix(rep(0, n*m), ncol = m)
@@ -35,8 +41,10 @@ IdentificationRiskModified <- function(origdata, syndata, known, syn){
     for (k in 1:m){
       syndata_k = syndata[[k]]
 
-      match_k = origdata[i,syn.vars] == syndata[i,syn.vars] &
-        origdata[i,known.vars] == syndata[i,known.vars]
+      match_k<-(eval(parse(text=paste("origdata$",syn.vars,"[i]==
+                                          syndata_k$",syn.vars,sep="",collapse="&")))&
+                  eval(parse(text=paste("origdata$",known.vars,"[i]==
+                                            syndata_k$",known.vars,sep="",collapse="&"))))
       match.prob_k<-ifelse(match_k,1/sum(match_k),0)
       c_vector[i, k] = sum(match_k)
 
