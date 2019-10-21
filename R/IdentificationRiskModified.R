@@ -12,21 +12,6 @@ IdentificationRiskModified <- function(origdata, syndata, known, syn){
   syndata = syndata
   syn.vars = syn
   known.vars = known
-  #syn.vars = rep(0,length(syn))
-  #known.vars = rep(0,length(known))
-
-  # for (i in 1:ncol(origdata)) {
-  #   for (j in 1:length(syn)){
-  #     if (colnames(origdata)[i] == syn[j]) {
-  #       syn.vars[length(syn.vars) + 1] = i
-  #     }
-  #   }
-  #   for (k in 1:length(known)) {
-  #     if (colnames(origdata)[i] == known[k]) {
-  #       known.vars[length(known.vars) + 1] = i
-  #     }
-  #   }
-  # }
 
   m = length(syndata) ## number of synthetic populations
   n = nrow(origdata) ## number of records / individuals
