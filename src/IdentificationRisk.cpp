@@ -114,6 +114,7 @@ Rcpp::List IdentificationRisk(Rcpp::NumericMatrix dataMatrix, int rows, int cols
   Rcpp::NumericMatrix tMatrix(rows, num);
   Rcpp::NumericMatrix kMatrix(rows, num);
   Rcpp::NumericMatrix fMatrix(rows, num);
+  Rcpp::NumericMatrix riskMatrix(rows, num);
 
   NumericVector sArray(num);
   NumericVector expArray(num);
@@ -159,9 +160,11 @@ Rcpp::List IdentificationRisk(Rcpp::NumericMatrix dataMatrix, int rows, int cols
 
       if (cMatrix(i,j) != 0) {
         tMatrix(i,j) = match_k[i];
+        riskMatrix(i,j) = tMatrix(i,j) / cMatrix(i,j);
         expArray[j] += tMatrix(i, j)/cMatrix(i,j);
       } else {
         tMatrix(i,j) = 1;
+        riskMatrix(i,j) = 0;
       }
 
       kMatrix(i,j) = (cMatrix(i,j) * tMatrix(i,j)) == 1;
@@ -184,7 +187,8 @@ Rcpp::List IdentificationRisk(Rcpp::NumericMatrix dataMatrix, int rows, int cols
                       Named("c_vector")=cMatrix,
                       Named("T_vector")=tMatrix,
                       Named("K_vector")=kMatrix,
-                      Named("F_vector")=fMatrix);
+                      Named("F_vector")=fMatrix,
+                      Named("Risk_vector")=riskMatrix);
 }
 
 
