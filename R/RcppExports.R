@@ -6,8 +6,19 @@
 #' @param syndata list of the different synthetic dataframes
 #' @param known vector of the names of the columns in the dataset assumed to be known
 #' @param syn vector of the names of the columns in the dataset that are synthetic
-#' @export
-IdentificationRisk <- function(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn) {
-    .Call('_categorical_IdentificationRisk', PACKAGE = 'categorical', dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn)
+.IdentificationRiskC <- function(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn) {
+    .Call('_IdentificationRiskCalculation_IdentificationRiskC', PACKAGE = 'IdentificationRiskCalculation', dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn)
+}
+
+#' This function will compute the identification risk for a dataset with synthetic continuous and categorical variables.
+#' @param origdata dataframe of the origonal data
+#' @param syndata list of the different synthetic dataframes
+#' @param known vector of the names of the columns in the dataset assumed to be known
+#' @param syn vector of the names of the columns in the dataset that are synthetic
+#' @param radius radius to compare with for continous variables. Radius is either percentage (default) or fixed
+#' @param percentage true for a percentage radius, false for a constant radius
+#' @param categoricalVector Boolean vector corresponding to the number of columns in the data, true means that column is categorical.
+.IdentificationRiskContinuousC <- function(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, categoricalVector) {
+    .Call('_IdentificationRiskCalculation_IdentificationRiskContinuousC', PACKAGE = 'IdentificationRiskCalculation', dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, categoricalVector)
 }
 

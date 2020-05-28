@@ -1,4 +1,4 @@
-#' @useDynLib categorical
+#' @useDynLib IdentificationRiskCalculation
 #' @importFrom Rcpp sourceCpp
 NULL
 
@@ -12,7 +12,7 @@ NULL
 #' @param syn vector of the names of the columns in the dataset that are synthetic
 #' @export
 
-IdentificationRiskCompiled = function(origdata, syndata, known, syn) {
+IdentificationRiskCategorical = function(origdata, syndata, known, syn) {
 
   origdataMatrix = data.matrix(origdata)
   colnames(origdataMatrix) = NULL
@@ -35,9 +35,13 @@ IdentificationRiskCompiled = function(origdata, syndata, known, syn) {
     numericSyn[i] = match(syn[i], colnames(origdata)) - 1
   }
 
-  result = .Call("_categorical_IdentificationRisk", origdataMatrix, as.integer(nrow(origdataMatrix)),
-              as.integer(ncol(origdataMatrix)), syndataMatrixList, as.integer(length(syndata)),
-              numericKnown, as.integer(length(numericKnown)), numericSyn, as.integer(length(numericSyn)), PACKAGE = "categorical")
+  result = .IdentificationRiskC(origdataMatrix, as.integer(nrow(origdataMatrix)),
+                                as.integer(ncol(origdataMatrix)), syndataMatrixList, as.integer(length(syndata)),
+                                numericKnown, as.integer(length(numericKnown)), numericSyn, as.integer(length(numericSyn)))
+  
+  #result = .Call("_categorical_IdentificationRisk", origdataMatrix, as.integer(nrow(origdataMatrix)),
+  #            as.integer(ncol(origdataMatrix)), syndataMatrixList, as.integer(length(syndata)),
+  #            numericKnown, as.integer(length(numericKnown)), numericSyn, as.integer(length(numericSyn)), PACKAGE = "categorical")
 
   return(result)
 }

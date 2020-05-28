@@ -5,9 +5,9 @@
 
 using namespace Rcpp;
 
-// IdentificationRisk
-Rcpp::List IdentificationRisk(Rcpp::NumericMatrix dataMatrix, int rows, int cols, Rcpp::List syndataMatrices, int num, NumericVector knowncols, int numKnown, NumericVector syncols, int numSyn);
-RcppExport SEXP _categorical_IdentificationRisk(SEXP dataMatrixSEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP syndataMatricesSEXP, SEXP numSEXP, SEXP knowncolsSEXP, SEXP numKnownSEXP, SEXP syncolsSEXP, SEXP numSynSEXP) {
+// IdentificationRiskC
+Rcpp::List IdentificationRiskC(Rcpp::NumericMatrix dataMatrix, int rows, int cols, Rcpp::List syndataMatrices, int num, NumericVector knowncols, int numKnown, NumericVector syncols, int numSyn);
+RcppExport SEXP _IdentificationRiskCalculation_IdentificationRiskC(SEXP dataMatrixSEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP syndataMatricesSEXP, SEXP numSEXP, SEXP knowncolsSEXP, SEXP numKnownSEXP, SEXP syncolsSEXP, SEXP numSynSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,17 +20,40 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type numKnown(numKnownSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type syncols(syncolsSEXP);
     Rcpp::traits::input_parameter< int >::type numSyn(numSynSEXP);
-    rcpp_result_gen = Rcpp::wrap(IdentificationRisk(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn));
+    rcpp_result_gen = Rcpp::wrap(IdentificationRiskC(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn));
+    return rcpp_result_gen;
+END_RCPP
+}
+// IdentificationRiskContinuousC
+Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int rows, int cols, Rcpp::List syndataMatrices, int num, NumericVector knowncols, int numKnown, NumericVector syncols, int numSyn, double radius, int percentage, NumericVector categoricalVector);
+RcppExport SEXP _IdentificationRiskCalculation_IdentificationRiskContinuousC(SEXP dataMatrixSEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP syndataMatricesSEXP, SEXP numSEXP, SEXP knowncolsSEXP, SEXP numKnownSEXP, SEXP syncolsSEXP, SEXP numSynSEXP, SEXP radiusSEXP, SEXP percentageSEXP, SEXP categoricalVectorSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type dataMatrix(dataMatrixSEXP);
+    Rcpp::traits::input_parameter< int >::type rows(rowsSEXP);
+    Rcpp::traits::input_parameter< int >::type cols(colsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type syndataMatrices(syndataMatricesSEXP);
+    Rcpp::traits::input_parameter< int >::type num(numSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type knowncols(knowncolsSEXP);
+    Rcpp::traits::input_parameter< int >::type numKnown(numKnownSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type syncols(syncolsSEXP);
+    Rcpp::traits::input_parameter< int >::type numSyn(numSynSEXP);
+    Rcpp::traits::input_parameter< double >::type radius(radiusSEXP);
+    Rcpp::traits::input_parameter< int >::type percentage(percentageSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type categoricalVector(categoricalVectorSEXP);
+    rcpp_result_gen = Rcpp::wrap(IdentificationRiskContinuousC(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, categoricalVector));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_categorical_IdentificationRisk", (DL_FUNC) &_categorical_IdentificationRisk, 9},
+    {"_IdentificationRiskCalculation_IdentificationRiskC", (DL_FUNC) &_IdentificationRiskCalculation_IdentificationRiskC, 9},
+    {"_IdentificationRiskCalculation_IdentificationRiskContinuousC", (DL_FUNC) &_IdentificationRiskCalculation_IdentificationRiskContinuousC, 12},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_categorical(DllInfo *dll) {
+RcppExport void R_init_IdentificationRiskCalculation(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }
