@@ -2,6 +2,8 @@
 
 export(IdentificationRisk)
 export(IdentificationRiskCompiled)
+export(IdentificationRiskContinuous)
+export(IdentificationRiskContinuousC)
 export(IdentificationRiskModified)
 importFrom(Rcpp,sourceCpp)
-useDynLib(categorical)
+useDynLib(IdentificationRiskCalculation)

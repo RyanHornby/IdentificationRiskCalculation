@@ -4,8 +4,17 @@
 \alias{IdentificationRisk}
 \title{This function will compute the identification risk for a dataset with synthetic categorical variables.}
 \usage{
-IdentificationRisk(dataMatrix, rows, cols, syndataMatrices, num, knowncols,
-  numKnown, syncols, numSyn)
+IdentificationRisk(
+  dataMatrix,
+  rows,
+  cols,
+  syndataMatrices,
+  num,
+  knowncols,
+  numKnown,
+  syncols,
+  numSyn
+)
 }
 \arguments{
 \item{origdata}{dataframe of the origonal data}
