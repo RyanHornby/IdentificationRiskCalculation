@@ -1,6 +1,6 @@
 Package: IdentificationRiskCalculation
 Title: Calculates Identification Risk for Synthetic Data
-Version: 0.0.0.9000
+Version: 1.0.0
 Authors@R: 
     c(person(given = "Ryan",
            family = "Hornby",
@@ -16,6 +16,6 @@ Depends:
 URL: https://github.com/RyanHornby/IdentificationRisk
 BugReports: https://github.com/RyanHornby/IdentificationRisk/issues
 Encoding: UTF-8
-LazyData: true
+LazyData: true  
 RoxygenNote: 7.1.0
 LinkingTo: Rcpp

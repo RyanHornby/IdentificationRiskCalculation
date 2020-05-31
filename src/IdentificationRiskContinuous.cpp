@@ -6,13 +6,15 @@ using namespace Rcpp;
 //' @param syndata list of the different synthetic dataframes
 //' @param known vector of the names of the columns in the dataset assumed to be known
 //' @param syn vector of the names of the columns in the dataset that are synthetic
-//' @param radius radius to compare with for continous variables. Radius is either percentage (default) or fixed
+//' @param radius radius to compare with for continous variables. Radius is either percentage (default) or fixed.
+//' Radius can be the same for all continuous variables or specific to each. To specify for each use a vector, with
+//' the radii ordered in the same order those columns appear in the dataset.
 //' @param percentage true for a percentage radius, false for a constant radius
 //' @param categoricalVector Boolean vector corresponding to the number of columns in the data, true means that column is categorical.
 // [[Rcpp::export(.IdentificationRiskContinuousC)]]
 Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int rows, int cols, Rcpp::List syndataMatrices,
                               int num, NumericVector knowncols, int numKnown, NumericVector syncols, int numSyn, 
-                              double radius, int percentage, NumericVector categoricalVector) {
+                              NumericVector radius, int percentage, NumericVector categoricalVector) {
   
   Rcpp::NumericMatrix cMatrix(rows, num);
   Rcpp::NumericMatrix tMatrix(rows, num);
@@ -42,9 +44,9 @@ Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int row
             match_k[k] = 0;
             break;
           } else if (categoricalVector[knowncols[l]] == 0) {
-            double currRadius = radius * dataMatrix(i, knowncols[l]);
+            double currRadius = radius[knowncols[l]] * dataMatrix(i, knowncols[l]);
             if (!percentage) {
-              currRadius = radius;
+              currRadius = radius[knowncols[l]];
             }
             if (syndataMatrix(k, knowncols[l]) >= dataMatrix(i, knowncols[l]) + currRadius ||
                 syndataMatrix(k, knowncols[l]) <= dataMatrix(i, knowncols[l]) - currRadius) {
@@ -60,9 +62,9 @@ Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int row
               match_k[k] = 0;
               break;
             } else if (categoricalVector[syncols[l]] == 0) {
-              double currRadius = radius * dataMatrix(i, syncols[l]);
+              double currRadius = radius[syncols[l]] * dataMatrix(i, syncols[l]);
               if (!percentage) {
-                currRadius = radius;
+                currRadius = radius[syncols[l]];
               } 
               if (syndataMatrix(k, syncols[l]) >= dataMatrix(i, syncols[l]) + currRadius || 
                   syndataMatrix(k, syncols[l]) <= dataMatrix(i, syncols[l]) - currRadius) {

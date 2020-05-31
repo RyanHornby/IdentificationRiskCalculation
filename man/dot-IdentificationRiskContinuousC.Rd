@@ -20,7 +20,9 @@
 )
 }
 \arguments{
-\item{radius}{radius to compare with for continous variables. Radius is either percentage (default) or fixed}
+\item{radius}{radius to compare with for continous variables. Radius is either percentage (default) or fixed.
+Radius can be the same for all continuous variables or specific to each. To specify for each use a vector, with
+the radii ordered in the same order those columns appear in the dataset.}
 
 \item{percentage}{true for a percentage radius, false for a constant radius}
 

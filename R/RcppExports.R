@@ -15,7 +15,9 @@
 #' @param syndata list of the different synthetic dataframes
 #' @param known vector of the names of the columns in the dataset assumed to be known
 #' @param syn vector of the names of the columns in the dataset that are synthetic
-#' @param radius radius to compare with for continous variables. Radius is either percentage (default) or fixed
+#' @param radius radius to compare with for continous variables. Radius is either percentage (default) or fixed.
+#' Radius can be the same for all continuous variables or specific to each. To specify for each use a vector, with
+#' the radii ordered in the same order those columns appear in the dataset.
 #' @param percentage true for a percentage radius, false for a constant radius
 #' @param categoricalVector Boolean vector corresponding to the number of columns in the data, true means that column is categorical.
 .IdentificationRiskContinuousC <- function(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, categoricalVector) {

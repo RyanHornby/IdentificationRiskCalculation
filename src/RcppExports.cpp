@@ -25,7 +25,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // IdentificationRiskContinuousC
-Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int rows, int cols, Rcpp::List syndataMatrices, int num, NumericVector knowncols, int numKnown, NumericVector syncols, int numSyn, double radius, int percentage, NumericVector categoricalVector);
+Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int rows, int cols, Rcpp::List syndataMatrices, int num, NumericVector knowncols, int numKnown, NumericVector syncols, int numSyn, NumericVector radius, int percentage, NumericVector categoricalVector);
 RcppExport SEXP _IdentificationRiskCalculation_IdentificationRiskContinuousC(SEXP dataMatrixSEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP syndataMatricesSEXP, SEXP numSEXP, SEXP knowncolsSEXP, SEXP numKnownSEXP, SEXP syncolsSEXP, SEXP numSynSEXP, SEXP radiusSEXP, SEXP percentageSEXP, SEXP categoricalVectorSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -39,7 +39,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type numKnown(numKnownSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type syncols(syncolsSEXP);
     Rcpp::traits::input_parameter< int >::type numSyn(numSynSEXP);
-    Rcpp::traits::input_parameter< double >::type radius(radiusSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type radius(radiusSEXP);
     Rcpp::traits::input_parameter< int >::type percentage(percentageSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type categoricalVector(categoricalVectorSEXP);
     rcpp_result_gen = Rcpp::wrap(IdentificationRiskContinuousC(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, categoricalVector));

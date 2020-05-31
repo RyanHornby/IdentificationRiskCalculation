@@ -6,11 +6,14 @@ NULL
 #' An Identification Risk Function
 #'
 #' This function will compute the identification risk for a dataset with synthetic categorical variables.
+#' This function assumes categorical variables will be as factors.
 #' @param origdata dataframe of the origonal data
 #' @param syndata list of the different synthetic dataframes
 #' @param known vector of the names of the columns in the dataset assumed to be known
 #' @param syn vector of the names of the columns in the dataset that are synthetic
-#' @param r radius to compare with for continous variables. Radius is either percentage (default) or fixed
+#' @param r radius to compare with for continous variables. Radius is either percentage (default) or fixed.
+#' Radius can be the same for all continuous variables or specific to each. To specify for each use a vector, with
+#' the radii ordered in the same order those columns appear in the dataset.
 #' @param percentage true for a percentage radius, false for a constant radius
 #' @export
 
@@ -37,12 +40,29 @@ IdentificationRiskContinuous = function(origdata, syndata, known, syn, r, percen
     numericSyn[i] = match(syn[i], colnames(origdata)) - 1
   }
   
+  flag = 0
+  if (length(r) == 1) {
+    r = rep(r, length(colnames(origdata)))
+    flag = 1
+  } 
+  
   categoricalVector = rep(0, length(colnames(origdata)))
   temp = names(Filter(is.factor, origdata))
+  tempR = vector(length = length(colnames(origdata)))
+  j = 0
   for (i in 1:length(colnames(origdata))) {
     if (is.element(colnames(origdata)[i], temp)) {
       categoricalVector[i] = 1
+      
+      tempR[i] = 0
+    } else if ((i %in% (numericKnown + 1) || i %in% (numericSyn + 1)) && flag == 0) {
+      j = j + 1
+      tempR[i] = r[j]
     }
+  }
+  
+  if (flag == 0) {
+    r = tempR
   }
   
   if (percentage) {
