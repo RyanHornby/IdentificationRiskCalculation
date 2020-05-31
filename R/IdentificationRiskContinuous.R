@@ -57,8 +57,17 @@ IdentificationRiskContinuous = function(origdata, syndata, known, syn, r, percen
       tempR[i] = 0
     } else if ((i %in% (numericKnown + 1) || i %in% (numericSyn + 1)) && flag == 0) {
       j = j + 1
+      if (j > length(r)) {
+        print("Error: radius vector must be length 1 or number of continuous synthetic and known variables.")
+        return(NULL)
+      }
       tempR[i] = r[j]
     }
+  }
+  
+  if (j != length(r)) {
+    print("Warning: length of radius vector longer than number of synthetic and known variables.")
+    print(paste("Warning: only using the first", j, "radii."))
   }
   
   if (flag == 0) {
