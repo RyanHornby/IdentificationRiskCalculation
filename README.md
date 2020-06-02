@@ -30,7 +30,7 @@ knownvars <- c("Age", "Urban", "Marital")
 r_age <- 0.1
 ```
 
-For the following 5 scenarios, we use the same 0.1 radius for all continuous variables for demonstration purpose,
+For the following 5 scenarios, we use the same 0.1 radius for all continuous variables for demonstration purpose. The output contains the expected match risk ```exp.risk```, the true match rate ```true.rate```, and the false match rate ```false.rate```.
 
 ## Scenario 1: Income (continuous)
 ```{r}
