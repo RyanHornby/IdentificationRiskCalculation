@@ -4,6 +4,8 @@
 This package calculates the identification risk in partially synthetic microdata. The expected match risk, 
 the true match rate, and the false match rate are reported. The calculation supports mixed data type, including categorical variables and continuous variables.
 
+We use the ```synthpop``` to synthesize variables.
+
 ```{r}
 install.packages("synthpop")
 devtools::install_github("https://github.com/RyanHornby/IdentificationRisk")
@@ -28,8 +30,9 @@ knownvars <- c("Age", "Urban", "Marital")
 r_age <- 0.1
 ```
 
+For the following 5 scenarios, we use the same 0.1 radius for all continuous variables for demonstration purpose,
 
-## Scenario (1): Income (con)
+## Scenario 1: Income (continuous)
 ```{r}
 synvars1 <- c("Income")
 syndata1 <- syn(CEdata, m = 20, visit.sequence = synvars1)
@@ -40,7 +43,7 @@ riskList1 <- IdentificationRiskContinuous(CEdata, syndata1$syn,
 IR1 <- riskList1$exp.risk_vector
 ```
 
-## Scenario (2): Tenure (cat), Income (con)
+## Scenario 2: Tenure (categorical), Income (continuous)
 ```{r}
 synvars2 <- c("Tenure","Income")
 syndata2 <- syn(CEdata, m = 20, visit.sequence = synvars2)
@@ -51,7 +54,7 @@ riskList2 <- IdentificationRiskContinuous(CEdata, syndata2$syn,
 IR2 <- riskList2$exp.risk_vector
 ```
 
-## Scenario (3): Expenditure (con), Income (con)
+## Scenario 3: Expenditure (continuous), Income (continuous)
 ```{r}
 synvars3 <- c("Expenditure","Income")
 syndata3 <- syn(CEdata, m = 20, visit.sequence = synvars3)
@@ -64,7 +67,7 @@ riskList3 <- IdentificationRiskContinuous(CEdata, syndata3$syn,
 IR3 <- riskList3$exp.risk_vector
 ```
 
-## Scenario (4): Tenure (cat), Expenditure (con), Income (con)
+## Scenario 4: Tenure (categorical), Expenditure (continuous), Income (continuous)
 ```{r}
 synvars4 <- c("Tenure", "Expenditure", "Income")
 syndata4 <- syn(CEdata, m = 20, visit.sequence = synvars4)
@@ -77,7 +80,7 @@ riskList4 <- IdentificationRiskContinuous(CEdata, syndata4$syn,
 IR4 <- riskList4$exp.risk_vector
 ```
 
-## Additional scenario: Tenure (cat)
+## Scenario 5: Tenure (categorical)
 ```{r}
 synvars5 <- c("Tenure", "Urban")
 syndata5 <- syn(CEdata, m = 20, visit.sequence = synvars5)
