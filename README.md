@@ -62,7 +62,8 @@ synvars3 <- c("Expenditure","Income")
 syndata3 <- syn(CEdata, m = 20, visit.sequence = synvars3)
 r_income <- 0.1
 r_expenditure <- 0.1
-riskList3 <- IdentificationRiskContinuous(CEdata, syndata3$syn, knownvars, synvars3, c(r_age, r_expenditure, r_income))
+riskList3 <- IdentificationRiskContinuous(CEdata, syndata3$syn, knownvars, synvars3, c(r_age, r_expenditure, 
+                                                                                        r_income))
 
 exp.risk3 <- riskList3$exp.risk_vector
 true.rate3 <- riskList3$true.rate_vector
@@ -75,7 +76,8 @@ synvars4 <- c("Tenure", "Expenditure", "Income")
 syndata4 <- syn(CEdata, m = 20, visit.sequence = synvars4)
 r_income <- 0.1
 r_expenditure <- 0.1
-riskList4 <- IdentificationRiskContinuous(CEdata, syndata4$syn, knownvars, synvars4, c(r_age, r_expenditure, r_income))
+riskList4 <- IdentificationRiskContinuous(CEdata, syndata4$syn, knownvars, synvars4, c(r_age, r_expenditure, 
+                                                                                        r_income))
 
 exp.risk4 <- riskList4$exp.risk_vector
 true.rate4 <- riskList4$true.rate_vector
