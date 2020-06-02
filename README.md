@@ -37,10 +37,11 @@ For the following 5 scenarios, we use the same 0.1 radius for all continuous var
 synvars1 <- c("Income")
 syndata1 <- syn(CEdata, m = 20, visit.sequence = synvars1)
 r_income <- 0.1
-riskList1 <- IdentificationRiskContinuous(CEdata, syndata1$syn, 
-                                          knownvars, synvars1, 
-                                          c(r_age, r_income))
-IR1 <- riskList1$exp.risk_vector
+riskList1 <- IdentificationRiskContinuous(CEdata, syndata1$syn, knownvars, synvars1, c(r_age, r_income))
+
+exp.risk1 <- riskList1$exp.risk_vector
+true.rate1 <- riskList1$true.rate_vector
+false.rate1 <- riskList1$false.rate_vector
 ```
 
 ## Scenario 2: Tenure (categorical), Income (continuous)
@@ -48,10 +49,11 @@ IR1 <- riskList1$exp.risk_vector
 synvars2 <- c("Tenure","Income")
 syndata2 <- syn(CEdata, m = 20, visit.sequence = synvars2)
 r_income <- 0.1
-riskList2 <- IdentificationRiskContinuous(CEdata, syndata2$syn, 
-                                          knownvars, synvars2, 
-                                          c(r_age, r_income))
-IR2 <- riskList2$exp.risk_vector
+riskList2 <- IdentificationRiskContinuous(CEdata, syndata2$syn, knownvars, synvars2, c(r_age, r_income))
+
+exp.risk2 <- riskList2$exp.risk_vector
+true.rate2 <- riskList2$true.rate_vector
+false.rate2 <- riskList2$false.rate_vector
 ```
 
 ## Scenario 3: Expenditure (continuous), Income (continuous)
@@ -60,11 +62,11 @@ synvars3 <- c("Expenditure","Income")
 syndata3 <- syn(CEdata, m = 20, visit.sequence = synvars3)
 r_income <- 0.1
 r_expenditure <- 0.1
-riskList3 <- IdentificationRiskContinuous(CEdata, syndata3$syn, 
-                                          knownvars, synvars3, 
-                                          c(r_age, r_expenditure,
-                                            r_income))
-IR3 <- riskList3$exp.risk_vector
+riskList3 <- IdentificationRiskContinuous(CEdata, syndata3$syn, knownvars, synvars3, c(r_age, r_expenditure, r_income))
+
+exp.risk3 <- riskList3$exp.risk_vector
+true.rate3 <- riskList3$true.rate_vector
+false.rate3 <- riskList3$false.rate_vector
 ```
 
 ## Scenario 4: Tenure (categorical), Expenditure (continuous), Income (continuous)
@@ -73,18 +75,20 @@ synvars4 <- c("Tenure", "Expenditure", "Income")
 syndata4 <- syn(CEdata, m = 20, visit.sequence = synvars4)
 r_income <- 0.1
 r_expenditure <- 0.1
-riskList4 <- IdentificationRiskContinuous(CEdata, syndata4$syn, 
-                                          knownvars, synvars4,
-                                          c(r_age, r_expenditure,
-                                            r_income))
-IR4 <- riskList4$exp.risk_vector
+riskList4 <- IdentificationRiskContinuous(CEdata, syndata4$syn, knownvars, synvars4, c(r_age, r_expenditure, r_income))
+
+exp.risk4 <- riskList4$exp.risk_vector
+true.rate4 <- riskList4$true.rate_vector
+false.rate4 <- riskList4$false.rate_vector
 ```
 
 ## Scenario 5: Tenure (categorical)
 ```{r}
 synvars5 <- c("Tenure", "Urban")
 syndata5 <- syn(CEdata, m = 20, visit.sequence = synvars5)
-riskList5 <- IdentificationRiskCategorical(CEdata, syndata5$syn, 
-                                          knownvars, synvars5)
-IR5 <- riskList5$exp.risk_vector
+riskList5 <- IdentificationRiskCategorical(CEdata, syndata5$syn, knownvars, synvars5)
+
+exp.risk5 <- riskList5$exp.risk_vector
+true.rate5 <- riskList5$true.rate_vector
+false.rate5 <- riskList5$false.rate_vector
 ```
