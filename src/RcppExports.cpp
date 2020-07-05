@@ -25,8 +25,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // IdentificationRiskContinuousC
-Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int rows, int cols, Rcpp::List syndataMatrices, int num, NumericVector knowncols, int numKnown, NumericVector syncols, int numSyn, NumericVector radius, int percentage, NumericVector categoricalVector);
-RcppExport SEXP _IdentificationRiskCalculation_IdentificationRiskContinuousC(SEXP dataMatrixSEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP syndataMatricesSEXP, SEXP numSEXP, SEXP knowncolsSEXP, SEXP numKnownSEXP, SEXP syncolsSEXP, SEXP numSynSEXP, SEXP radiusSEXP, SEXP percentageSEXP, SEXP categoricalVectorSEXP) {
+Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int rows, int cols, Rcpp::List syndataMatrices, int num, NumericVector knowncols, int numKnown, NumericVector syncols, int numSyn, NumericVector radius, int percentage, int euclideanDist, NumericVector categoricalVector);
+RcppExport SEXP _IdentificationRiskCalculation_IdentificationRiskContinuousC(SEXP dataMatrixSEXP, SEXP rowsSEXP, SEXP colsSEXP, SEXP syndataMatricesSEXP, SEXP numSEXP, SEXP knowncolsSEXP, SEXP numKnownSEXP, SEXP syncolsSEXP, SEXP numSynSEXP, SEXP radiusSEXP, SEXP percentageSEXP, SEXP euclideanDistSEXP, SEXP categoricalVectorSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -41,15 +41,16 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< int >::type numSyn(numSynSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type radius(radiusSEXP);
     Rcpp::traits::input_parameter< int >::type percentage(percentageSEXP);
+    Rcpp::traits::input_parameter< int >::type euclideanDist(euclideanDistSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type categoricalVector(categoricalVectorSEXP);
-    rcpp_result_gen = Rcpp::wrap(IdentificationRiskContinuousC(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, categoricalVector));
+    rcpp_result_gen = Rcpp::wrap(IdentificationRiskContinuousC(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, euclideanDist, categoricalVector));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_IdentificationRiskCalculation_IdentificationRiskC", (DL_FUNC) &_IdentificationRiskCalculation_IdentificationRiskC, 9},
-    {"_IdentificationRiskCalculation_IdentificationRiskContinuousC", (DL_FUNC) &_IdentificationRiskCalculation_IdentificationRiskContinuousC, 12},
+    {"_IdentificationRiskCalculation_IdentificationRiskContinuousC", (DL_FUNC) &_IdentificationRiskCalculation_IdentificationRiskContinuousC, 13},
     {NULL, NULL, 0}
 };
 

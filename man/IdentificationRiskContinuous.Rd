@@ -10,7 +10,8 @@ IdentificationRiskContinuous(
   known,
   syn,
   r,
-  percentage = TRUE
+  percentage = TRUE,
+  euclideanDist = FALSE
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ Radius can be the same for all continuous variables or specific to each. To spec
 the radii ordered in the same order those columns appear in the dataset.}
 
 \item{percentage}{true for a percentage radius, false for a constant radius}
+
+\item{euclideanDist}{true for a euclidean distance radius, false otherwise}
 }
 \description{
 This function will compute the identification risk for a dataset with synthetic categorical variables.

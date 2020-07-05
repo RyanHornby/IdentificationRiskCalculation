@@ -19,8 +19,9 @@
 #' Radius can be the same for all continuous variables or specific to each. To specify for each use a vector, with
 #' the radii ordered in the same order those columns appear in the dataset.
 #' @param percentage true for a percentage radius, false for a constant radius
+#' @param euclideanDist true for a euclidean distance radius, false otherwise
 #' @param categoricalVector Boolean vector corresponding to the number of columns in the data, true means that column is categorical.
-.IdentificationRiskContinuousC <- function(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, categoricalVector) {
-    .Call('_IdentificationRiskCalculation_IdentificationRiskContinuousC', PACKAGE = 'IdentificationRiskCalculation', dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, categoricalVector)
+.IdentificationRiskContinuousC <- function(dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, euclideanDist, categoricalVector) {
+    .Call('_IdentificationRiskCalculation_IdentificationRiskContinuousC', PACKAGE = 'IdentificationRiskCalculation', dataMatrix, rows, cols, syndataMatrices, num, knowncols, numKnown, syncols, numSyn, radius, percentage, euclideanDist, categoricalVector)
 }
 

@@ -15,9 +15,10 @@ NULL
 #' Radius can be the same for all continuous variables or specific to each. To specify for each use a vector, with
 #' the radii ordered in the same order those columns appear in the dataset.
 #' @param percentage true for a percentage radius, false for a constant radius
+#' @param euclideanDist true for a euclidean distance radius, false otherwise
 #' @export
 
-IdentificationRiskContinuous = function(origdata, syndata, known, syn, r, percentage = TRUE) {
+IdentificationRiskContinuous = function(origdata, syndata, known, syn, r, percentage = TRUE, euclideanDist = FALSE) {
   
   origdataMatrix = data.matrix(origdata)
   colnames(origdataMatrix) = NULL
@@ -80,9 +81,15 @@ IdentificationRiskContinuous = function(origdata, syndata, known, syn, r, percen
     percentage = 0
   }
   
+  if (euclideanDist) {
+    euclideanDist = 1
+  } else {
+    euclideanDist = 0
+  }
+  
   result = .IdentificationRiskContinuousC(origdataMatrix, as.integer(nrow(origdataMatrix)),
                                           as.integer(ncol(origdataMatrix)), syndataMatrixList, as.integer(length(syndata)),
-                                          numericKnown, as.integer(length(numericKnown)), numericSyn, as.integer(length(numericSyn)), r, percentage, categoricalVector)
+                                          numericKnown, as.integer(length(numericKnown)), numericSyn, as.integer(length(numericSyn)), r, percentage, euclideanDist, categoricalVector)
   
   #result = .Call("_categorical_IdentificationRiskContinuousC", origdataMatrix, as.integer(nrow(origdataMatrix)),
   #               as.integer(ncol(origdataMatrix)), syndataMatrixList, as.integer(length(syndata)),

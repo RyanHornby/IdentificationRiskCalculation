@@ -16,6 +16,7 @@
   numSyn,
   radius,
   percentage,
+  euclideanDist,
   categoricalVector
 )
 }
@@ -25,6 +26,8 @@ Radius can be the same for all continuous variables or specific to each. To spec
 the radii ordered in the same order those columns appear in the dataset.}
 
 \item{percentage}{true for a percentage radius, false for a constant radius}
+
+\item{euclideanDist}{true for a euclidean distance radius, false otherwise}
 
 \item{categoricalVector}{Boolean vector corresponding to the number of columns in the data, true means that column is categorical.}
 

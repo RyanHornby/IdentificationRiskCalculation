@@ -10,11 +10,12 @@ using namespace Rcpp;
 //' Radius can be the same for all continuous variables or specific to each. To specify for each use a vector, with
 //' the radii ordered in the same order those columns appear in the dataset.
 //' @param percentage true for a percentage radius, false for a constant radius
+//' @param euclideanDist true for a euclidean distance radius, false otherwise
 //' @param categoricalVector Boolean vector corresponding to the number of columns in the data, true means that column is categorical.
 // [[Rcpp::export(.IdentificationRiskContinuousC)]]
 Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int rows, int cols, Rcpp::List syndataMatrices,
                               int num, NumericVector knowncols, int numKnown, NumericVector syncols, int numSyn, 
-                              NumericVector radius, int percentage, NumericVector categoricalVector) {
+                              NumericVector radius, int percentage, int euclideanDist, NumericVector categoricalVector) {
   
   Rcpp::NumericMatrix cMatrix(rows, num);
   Rcpp::NumericMatrix tMatrix(rows, num);
@@ -39,14 +40,27 @@ Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int row
       for (int k = 0; k < rows; k++) {
         // try to match person i with every person in the synthetic set
         // by first checking if the known variables
+        double currRadius = 0;
+        if (euclideanDist) {
+          for (int l = 0; l < numKnown; l++) {
+            if (categoricalVector[knowncols[l]] == 0 && percentage) {
+              currRadius += pow(radius[knowncols[l]] * dataMatrix(i, knowncols[l]), 2);
+            } else if (categoricalVector[knowncols[l]] == 0) {
+              currRadius += pow(radius[knowncols[l]], 2);
+            }
+          }
+          currRadius = pow(currRadius, 0.5);
+        }
         for (int l = 0; l < numKnown; l++) {
           if (categoricalVector[knowncols[l]] && dataMatrix(i,knowncols[l]) != syndataMatrix(k, knowncols[l])) {
             match_k[k] = 0;
             break;
           } else if (categoricalVector[knowncols[l]] == 0) {
-            double currRadius = radius[knowncols[l]] * dataMatrix(i, knowncols[l]);
-            if (!percentage) {
-              currRadius = radius[knowncols[l]];
+            if (euclideanDist == 0) {
+              currRadius = radius[knowncols[l]] * dataMatrix(i, knowncols[l]);
+              if (!percentage) {
+                currRadius = radius[knowncols[l]];
+              } 
             }
             if (syndataMatrix(k, knowncols[l]) >= dataMatrix(i, knowncols[l]) + currRadius ||
                 syndataMatrix(k, knowncols[l]) <= dataMatrix(i, knowncols[l]) - currRadius) {
@@ -56,16 +70,28 @@ Rcpp::List IdentificationRiskContinuousC(Rcpp::NumericMatrix dataMatrix, int row
           }
         }
         // then if those match check the synthetic ones
+        if (euclideanDist) {
+          for (int l = 0; l < numSyn; l++) {
+            if (categoricalVector[syncols[l]] == 0 && percentage) {
+              currRadius += pow(radius[syncols[l]] * dataMatrix(i, syncols[l]), 2);
+            } else if (categoricalVector[syncols[l]] == 0) {
+              currRadius += pow(radius[syncols[l]], 2);
+            }
+          }
+          currRadius = pow(currRadius, 0.5);
+        }
         if (match_k[k]) {
           for (int l = 0; l < numSyn; l++) {
             if (categoricalVector[syncols[l]] && dataMatrix(i,syncols[l]) != syndataMatrix(k,syncols[l])) {
               match_k[k] = 0;
               break;
             } else if (categoricalVector[syncols[l]] == 0) {
-              double currRadius = radius[syncols[l]] * dataMatrix(i, syncols[l]);
-              if (!percentage) {
-                currRadius = radius[syncols[l]];
-              } 
+              if (euclideanDist == 0) {
+                currRadius = radius[syncols[l]] * dataMatrix(i, syncols[l]);
+                if (!percentage) {
+                  currRadius = radius[syncols[l]];
+                }
+              }
               if (syndataMatrix(k, syncols[l]) >= dataMatrix(i, syncols[l]) + currRadius || 
                   syndataMatrix(k, syncols[l]) <= dataMatrix(i, syncols[l]) - currRadius) {
                 match_k[k] = 0;
