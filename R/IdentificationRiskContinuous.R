@@ -7,18 +7,18 @@ NULL
 #'
 #' This function will compute the identification risk for a dataset with synthetic categorical variables.
 #' This function assumes categorical variables will be as factors.
-#' @param origdata dataframe of the origonal data
+#' @param origdata dataframe of the original data
 #' @param syndata list of the different synthetic dataframes
 #' @param known vector of the names of the columns in the dataset assumed to be known
 #' @param syn vector of the names of the columns in the dataset that are synthetic
-#' @param r radius to compare with for continous variables. Radius is either percentage (default) or fixed.
+#' @param r radius to compare with for continuous variables. Radius is either percentage (default) or fixed.
 #' Radius can be the same for all continuous variables or specific to each. To specify for each use a vector, with
 #' the radii ordered in the same order those columns appear in the dataset.
 #' @param percentage true for a percentage radius, false for a constant radius
 #' @param euclideanDist true for a euclidean distance radius, false otherwise
 #' @export
 
-IdentificationRiskContinuous = function(origdata, syndata, known, syn, r, percentage = TRUE, euclideanDist = FALSE) {
+IdentificationRisk = function(origdata, syndata, known, syn, r, percentage = TRUE, euclideanDist = FALSE) {
   
   origdataMatrix = data.matrix(origdata)
   colnames(origdataMatrix) = NULL

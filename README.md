@@ -37,7 +37,7 @@ For the following 5 scenarios, we use the same 0.1 radius for all continuous var
 synvars1 <- c("Income")
 syndata1 <- syn(CEdata, m = 20, visit.sequence = synvars1)
 r_income <- 0.1
-riskList1 <- IdentificationRiskContinuous(CEdata, syndata1$syn, knownvars, synvars1, c(r_age, r_income))
+riskList1 <- IdentificationRisk(CEdata, syndata1$syn, knownvars, synvars1, c(r_age, r_income))
 
 exp.risk1 <- riskList1$exp.risk_vector
 true.rate1 <- riskList1$true.rate_vector
@@ -49,7 +49,7 @@ false.rate1 <- riskList1$false.rate_vector
 synvars2 <- c("Tenure","Income")
 syndata2 <- syn(CEdata, m = 20, visit.sequence = synvars2)
 r_income <- 0.1
-riskList2 <- IdentificationRiskContinuous(CEdata, syndata2$syn, knownvars, synvars2, c(r_age, r_income))
+riskList2 <- IdentificationRisk(CEdata, syndata2$syn, knownvars, synvars2, c(r_age, r_income))
 
 exp.risk2 <- riskList2$exp.risk_vector
 true.rate2 <- riskList2$true.rate_vector
@@ -62,7 +62,7 @@ synvars3 <- c("Expenditure","Income")
 syndata3 <- syn(CEdata, m = 20, visit.sequence = synvars3)
 r_income <- 0.1
 r_expenditure <- 0.1
-riskList3 <- IdentificationRiskContinuous(CEdata, syndata3$syn, knownvars, synvars3, c(r_age, r_expenditure, 
+riskList3 <- IdentificationRisk(CEdata, syndata3$syn, knownvars, synvars3, c(r_age, r_expenditure, 
                                                                                         r_income))
 
 exp.risk3 <- riskList3$exp.risk_vector
@@ -76,7 +76,7 @@ synvars4 <- c("Tenure", "Expenditure", "Income")
 syndata4 <- syn(CEdata, m = 20, visit.sequence = synvars4)
 r_income <- 0.1
 r_expenditure <- 0.1
-riskList4 <- IdentificationRiskContinuous(CEdata, syndata4$syn, knownvars, synvars4, c(r_age, r_expenditure, 
+riskList4 <- IdentificationRisk(CEdata, syndata4$syn, knownvars, synvars4, c(r_age, r_expenditure, 
                                                                                         r_income))
 
 exp.risk4 <- riskList4$exp.risk_vector
