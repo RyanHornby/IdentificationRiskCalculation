@@ -8,7 +8,7 @@ We use the ```synthpop``` to synthesize variables.
 
 ```{r}
 install.packages("synthpop")
-devtools::install_github("https://github.com/RyanHornby/IdentificationRisk")
+devtools::install_github("https://github.com/RyanHornby/IdentificationRiskCalculation")
 
 require(IdentificationRiskCalculation)
 require(synthpop)
@@ -37,7 +37,11 @@ For the following 5 scenarios, we use the same 0.1 radius for all continuous var
 synvars1 <- c("Income")
 syndata1 <- syn(CEdata, m = 20, visit.sequence = synvars1)
 r_income <- 0.1
-riskList1 <- IdentificationRisk(CEdata, syndata1$syn, knownvars, synvars1, c(r_age, r_income))
+riskList1 <- IdentificationRisk(origdata = CEdata, 
+                                syndata = syndata1$syn, 
+                                known = knownvars, 
+                                syn = synvars1, 
+                                r = c(r_age, r_income))
 
 exp.risk1 <- riskList1$exp.risk_vector
 true.rate1 <- riskList1$true.rate_vector
@@ -49,8 +53,12 @@ false.rate1 <- riskList1$false.rate_vector
 synvars2 <- c("Tenure","Income")
 syndata2 <- syn(CEdata, m = 20, visit.sequence = synvars2)
 r_income <- 0.1
-riskList2 <- IdentificationRisk(CEdata, syndata2$syn, knownvars, synvars2, c(r_age, r_income))
-
+riskList2 <- IdentificationRisk(origdata = CEdata, 
+                                syndata = syndata2$syn, 
+                                known = knownvars, 
+                                syn = synvars2, 
+                                r = c(r_age, r_income))
+                                
 exp.risk2 <- riskList2$exp.risk_vector
 true.rate2 <- riskList2$true.rate_vector
 false.rate2 <- riskList2$false.rate_vector
@@ -62,8 +70,12 @@ synvars3 <- c("Expenditure","Income")
 syndata3 <- syn(CEdata, m = 20, visit.sequence = synvars3)
 r_income <- 0.1
 r_expenditure <- 0.1
-riskList3 <- IdentificationRisk(CEdata, syndata3$syn, knownvars, synvars3, c(r_age, r_expenditure, 
-                                                                                        r_income))
+riskList3 <- IdentificationRisk(origdata = CEdata, 
+                                syndata = syndata3$syn, 
+                                known = knownvars,
+                                syn = synvars3, 
+                                r = c(r_age, r_expenditure, 
+                                      r_income))
 
 exp.risk3 <- riskList3$exp.risk_vector
 true.rate3 <- riskList3$true.rate_vector
@@ -76,8 +88,12 @@ synvars4 <- c("Tenure", "Expenditure", "Income")
 syndata4 <- syn(CEdata, m = 20, visit.sequence = synvars4)
 r_income <- 0.1
 r_expenditure <- 0.1
-riskList4 <- IdentificationRisk(CEdata, syndata4$syn, knownvars, synvars4, c(r_age, r_expenditure, 
-                                                                                        r_income))
+riskList4 <- IdentificationRisk(origdata = CEdata, 
+                                syndata = syndata4$syn, 
+                                known = knownvars, 
+                                syn = synvars4,
+                                r = c(r_age, r_expenditure, 
+                                      r_income))
 
 exp.risk4 <- riskList4$exp.risk_vector
 true.rate4 <- riskList4$true.rate_vector
@@ -88,7 +104,10 @@ false.rate4 <- riskList4$false.rate_vector
 ```{r}
 synvars5 <- c("Tenure", "Urban")
 syndata5 <- syn(CEdata, m = 20, visit.sequence = synvars5)
-riskList5 <- IdentificationRiskCategorical(CEdata, syndata5$syn, knownvars, synvars5)
+riskList5 <- IdentificationRiskCategorical(origdata = CEdata, 
+                                           syndata = syndata5$syn, 
+                                           known = knownvars, 
+                                           syn = synvars5)
 
 exp.risk5 <- riskList5$exp.risk_vector
 true.rate5 <- riskList5$true.rate_vector
