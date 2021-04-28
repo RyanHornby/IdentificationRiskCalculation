@@ -104,7 +104,7 @@ false.rate4 <- riskList4$false.rate_vector
 ```{r}
 synvars5 <- c("Tenure", "Urban")
 syndata5 <- syn(CEdata, m = 20, visit.sequence = synvars5)
-riskList5 <- IdentificationRiskCategorical(origdata = CEdata, 
+riskList5 <- IdentificationRisk(origdata = CEdata, 
                                            syndata = syndata5$syn, 
                                            known = knownvars, 
                                            syn = synvars5)
