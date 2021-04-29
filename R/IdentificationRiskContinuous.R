@@ -18,7 +18,7 @@ NULL
 #' @param euclideanDist true for a euclidean distance radius, false otherwise
 #' @export
 
-IdentificationRisk = function(origdata, syndata, known, syn, r, percentage = TRUE, euclideanDist = FALSE) {
+IdentificationRisk = function(origdata, syndata, known, syn, r = NULL, percentage = TRUE, euclideanDist = FALSE) {
   
   origdataMatrix = data.matrix(origdata)
   colnames(origdataMatrix) = NULL
@@ -39,6 +39,16 @@ IdentificationRisk = function(origdata, syndata, known, syn, r, percentage = TRU
   
   for (i in 1:length(numericSyn)) {
     numericSyn[i] = match(syn[i], colnames(origdata)) - 1
+  }
+  
+  if (is.null(r)) {
+    message("Assuming all synthetic and known vars to be categorical")
+    
+    result = .IdentificationRiskC(origdataMatrix, as.integer(nrow(origdataMatrix)),
+                                  as.integer(ncol(origdataMatrix)), syndataMatrixList, as.integer(length(syndata)),
+                                  numericKnown, as.integer(length(numericKnown)), numericSyn, as.integer(length(numericSyn)))
+    
+    return(result)
   }
   
   flag = 0
