@@ -2,7 +2,9 @@
 ## Calculating the Identification Risks in Partially Synthetic Microdata
 
 This package calculates the identification risk in partially synthetic microdata. The expected match risk, 
-the true match rate, and the false match rate are reported. The calculation supports mixed data type, including categorical variables and continuous variables. The details of the calculation methods, including how identification risks are defined, are available at this published paper: http://www.tdp.cat/issues21/abs.a425a21.php
+the true match rate, and the false match rate are reported. The calculation supports mixed data type, including categorical variables and continuous variables. The details of the calculation methods, including how identification risks are defined, are available at this published paper:
+
+Hornby, R. and Hu, J. (2021), Identification risks evaluation of partially synthetic data with the IdentificationRiskCalculation R package, Transactions on Data Privacy, 14:1, 37-52. http://www.tdp.cat/issues21/abs.a425a21.php
 
 We use the ```synthpop``` to synthesize variables.
 
