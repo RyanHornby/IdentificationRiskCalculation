@@ -20,12 +20,12 @@ NULL
 
 IdentificationRisk = function(origdata, syndata, known, syn, r = NULL, percentage = TRUE, euclideanDist = FALSE) {
   
-  origdataMatrix = data.matrix(origdata)
+  origdataMatrix = dfToMatrix(origdata)
   colnames(origdataMatrix) = NULL
   
   syndataMatrixList = vector(mode = "list", length(syndata))
   for (i in 1:length(syndata)) {
-    temp = data.matrix(syndata[[i]])
+    temp = dfToMatrix(syndata[[i]])
     colnames(temp) = NULL
     syndataMatrixList[[i]] = temp
   }
