@@ -14,12 +14,27 @@ NULL
 
 IdentificationRiskCategorical = function(origdata, syndata, known, syn) {
 
-  origdataMatrix = dfToMatrix(origdata)
+  # Ensure factors in origdata and syndata share the same levels
+  for (col in colnames(origdata)) {
+    if (is.factor(origdata[[col]]) || is.character(origdata[[col]])) {
+      # Convert to factor with consistent levels across both datasets
+      all_levels <- union(levels(factor(origdata[[col]])), levels(factor(syndata[[1]][[col]])))
+      origdata[[col]] <- factor(origdata[[col]], levels = all_levels)
+      
+      # Apply consistent levels to all synthetic datasets
+      syndata <- lapply(syndata, function(df) {
+        df[[col]] <- factor(df[[col]], levels = all_levels)
+        return(df)
+      })
+    }
+  }
+  
+  origdataMatrix = data.matrix(origdata)
   colnames(origdataMatrix) = NULL
 
   syndataMatrixList = vector(mode = "list", length(syndata))
   for (i in 1:length(syndata)) {
-    temp = dfToMatrix(syndata[[i]])
+    temp = data.matrix(syndata[[i]])
     colnames(temp) = NULL
     syndataMatrixList[[i]] = temp
   }
